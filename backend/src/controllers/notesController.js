@@ -3,7 +3,7 @@ import Note from "../models/Note.js";
 export const getAllNotes = async (req, res) => {
   // res.status(200).json({ message: "We fetched all the Notes." });
   try {
-    const notes = await Note.find().sort({ createdAt: -1 }); // Sort by creation date, most recent first
+    const notes = await Note.find({ user: req.user.userId }).sort({ createdAt: -1 }); // Sort by creation date, most recent first
     res.status(200).json(notes);
   } catch (error) {
     console.error("Error fetching notes through notes controller:", error);
@@ -15,7 +15,7 @@ export const getAllNotes = async (req, res) => {
 
 export const getNoteById = async (req, res) => {
   try {
-    const note = await Note.findById(req.params.id);
+    const note = await Note.findOne({ _id: req.params.id, user: req.user.userId });
     if (!note) {
       return res.status(404).json({ message: "Note not found." });
     }
@@ -40,7 +40,7 @@ export const createNote = async (req, res) => {
         .status(400)
         .json({ message: "Title and content are required." });
     }
-    const newNote = new Note({ title, content });
+    const newNote = new Note({ title, content, user: req.user.userId });
     const savedNote = await newNote.save();
     res
       .status(201)
@@ -62,8 +62,8 @@ export const updateNote = async (req, res) => {
         .status(400)
         .json({ message: "Title and content are required." });
     }
-    const updatedNote = await Note.findByIdAndUpdate(
-      req.params.id,
+    const updatedNote = await Note.findOneAndUpdate(
+      { _id: req.params.id, user: req.user.userId },
       { title, content },
       { new: true }
     );
@@ -82,7 +82,7 @@ export const updateNote = async (req, res) => {
 export const deleteNote = async (req, res) => {
   // res.status(201).json({ message: "Note Deleted Successfully!" });
   try {
-    const deletedNote = await Note.findByIdAndDelete(req.params.id);
+    const deletedNote = await Note.findOneAndDelete({ _id: req.params.id, user: req.user.userId });
     if (!deletedNote) {
       return res.status(404).json({ message: "Note not found." });
     }
