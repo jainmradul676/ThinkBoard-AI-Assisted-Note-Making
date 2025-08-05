@@ -32,8 +32,11 @@ export const AuthProvider = ({ children }) => {
   };
 
   const login = () => {
-    // Redirect to backend Google OAuth route
-    window.location.href = 'http://localhost:5001/api/auth/google';
+    // Redirect to backend Google OAuth route using environment-based URL
+    const backendUrl = import.meta.env.MODE === "development" 
+      ? "http://localhost:5001/api/auth/google" 
+      : "/api/auth/google";
+    window.location.href = backendUrl;
   };
 
   const logout = async () => {
