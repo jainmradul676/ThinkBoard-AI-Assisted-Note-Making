@@ -3,6 +3,7 @@ dotenv.config({ override: true }); // Load environment variables first
 
 import express from "express";
 import notesRoutes from "./routes/notesRoutes.js";
+import taskRoutes from "./routes/taskRoutes.js";
 import authRoutes from "./routes/authRoutes.js";
 import { connectDB } from "./config/db.js";
 import rateLimiter from "./middleware/rateLimiter.js";
@@ -13,8 +14,6 @@ import cookieParser from "cookie-parser";
 import "./config/passport.js";
 
 const app = express();
-
-
 
 const PORT = process.env.PORT || 5001;
 
@@ -45,6 +44,7 @@ app.use(rateLimiter); // Apply rate limiting middleware
 
 app.use("/api/auth", authRoutes);
 app.use("/api/notes", notesRoutes);
+app.use("/api/tasks", taskRoutes);
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "../frontend/dist")));

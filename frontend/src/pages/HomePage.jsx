@@ -36,7 +36,7 @@ const HomePage = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-blue-50/30">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-blue-50/30 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
       <Navbar />
       {isRateLimited && <RateLimitUI />}
       <div className="max-w-7xl mx-auto px-6 py-8">
@@ -44,7 +44,7 @@ const HomePage = () => {
         {loading && (
           <div className="flex items-center justify-center py-20">
             <div className="text-center">
-              <div className="inline-flex items-center gap-3 text-gray-600">
+              <div className="inline-flex items-center gap-3 text-gray-600 dark:text-gray-300">
                 <div className="w-6 h-6 border-2 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
                 <span className="text-lg font-medium">Loading your notes...</span>
               </div>
@@ -54,10 +54,10 @@ const HomePage = () => {
         {notes.length > 0 && !loading && !isRateLimited && (
           <div className="space-y-8">
             <div className="text-center mb-8">
-              <h2 className="text-3xl font-bold text-gray-900 mb-2">
+              <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
                 Your Notes
               </h2>
-              <p className="text-gray-600">
+              <p className="text-gray-600 dark:text-gray-300">
                 {notes.length} note{notes.length !== 1 ? 's' : ''} in your collection
               </p>
             </div>

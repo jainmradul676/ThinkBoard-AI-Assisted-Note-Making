@@ -1,11 +1,15 @@
 import { Route, Routes } from "react-router";
 import { Toaster } from "react-hot-toast";
 import HomePage from "./pages/HomePage";
+import TasksPage from "./pages/TasksPage";
 import CreatePage from "./pages/CreatePage";
+import CreateTaskPage from "./pages/CreateTaskPage";
 import NoteDetailPage from "./pages/NoteDetailPage";
+import TaskDetailPage from "./pages/TaskDetailPage";
 import LoginPage from "./components/LoginPage";
 import Navbar from "./components/Navbar";
 import { AuthProvider, useAuth } from "./context/AuthContext";
+import { DarkModeProvider } from "./context/DarkModeContext";
 
 const ProtectedRoute = ({ children }) => {
   const { user, loading } = useAuth();
@@ -30,7 +34,7 @@ const ProtectedRoute = ({ children }) => {
 
 const AppContent = () => {
   return (
-    <div data-theme="dark" className="min-h-screen">
+    <div className="min-h-screen">
       <Toaster />
       <Routes>
         <Route
@@ -38,6 +42,14 @@ const AppContent = () => {
           element={
             <ProtectedRoute>
               <HomePage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/tasks"
+          element={
+            <ProtectedRoute>
+              <TasksPage />
             </ProtectedRoute>
           }
         />
@@ -50,10 +62,26 @@ const AppContent = () => {
           }
         />
         <Route
+          path="/create-task"
+          element={
+            <ProtectedRoute>
+              <CreateTaskPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
           path="/note/:id"
           element={
             <ProtectedRoute>
               <NoteDetailPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/task/:id"
+          element={
+            <ProtectedRoute>
+              <TaskDetailPage />
             </ProtectedRoute>
           }
         />
@@ -65,7 +93,9 @@ const AppContent = () => {
 const App = () => {
   return (
     <AuthProvider>
-      <AppContent />
+      <DarkModeProvider>
+        <AppContent />
+      </DarkModeProvider>
     </AuthProvider>
   );
 };

@@ -24,16 +24,16 @@ const NoteCard = ({ note, setNotes }) => {
       to={`/note/${note._id}`}
       className="group block"
     >
-      <div className="card-modern border border-gray-100 hover:border-gray-200 overflow-hidden">
+      <div className="card-modern border border-gray-100 dark:border-gray-700 hover:border-gray-200 dark:hover:border-gray-600 overflow-hidden">
         <div className="p-6">
           <div className="flex items-start justify-between mb-4">
-            <h3 className="text-lg font-semibold text-gray-900 group-hover:text-blue-600 transition-colors duration-200 line-clamp-2">
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-200 line-clamp-2">
               {note.title}
             </h3>
             <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
               <PenSquareIcon className="size-4 text-blue-500 hover:text-blue-700 transition-colors" />
               <button 
-                className="p-1 text-red-500 hover:text-red-700 hover:bg-red-50 rounded-md transition-all duration-200"
+                className="p-1 text-red-500 hover:text-red-700 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-md transition-all duration-200"
                 onClick={(e) => handleDelete(e, note._id)}
               >
                 <Trash2Icon className="size-4" />
@@ -41,12 +41,12 @@ const NoteCard = ({ note, setNotes }) => {
             </div>
           </div>
           
-          <p className="text-gray-600 line-clamp-3 mb-4 leading-relaxed">
+          <p className="text-gray-600 dark:text-gray-300 line-clamp-3 mb-4 leading-relaxed">
             {note.content}
           </p>
           
-          <div className="flex items-center justify-between pt-4 border-t border-gray-100">
-            <span className="text-sm text-gray-500 font-medium">
+          <div className="flex items-center justify-between pt-4 border-t border-gray-100 dark:border-gray-700">
+            <span className="text-sm text-gray-500 dark:text-gray-400 font-medium">
               {formatDate(note.createdAt)}
             </span>
             <div className="w-2 h-2 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full"></div>
