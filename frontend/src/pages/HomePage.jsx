@@ -36,19 +36,36 @@ const HomePage = () => {
   }, []);
 
   return (
-    <div>
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-blue-50/30">
       <Navbar />
       {isRateLimited && <RateLimitUI />}
-      <div className="max-w-7xl mx-auto p-4 mt-6">
+      <div className="max-w-7xl mx-auto px-6 py-8">
         {notes.length === 0 && !loading && !isRateLimited && <NotesNotFound />}
         {loading && (
-          <div className="text-center text-primary">Loading Notes....</div>
+          <div className="flex items-center justify-center py-20">
+            <div className="text-center">
+              <div className="inline-flex items-center gap-3 text-gray-600">
+                <div className="w-6 h-6 border-2 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
+                <span className="text-lg font-medium">Loading your notes...</span>
+              </div>
+            </div>
+          </div>
         )}
         {notes.length > 0 && !loading && !isRateLimited && (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {notes.map((note) => (
-              <NoteCard key={note._id} note={note} setNotes={setNotes} />
-            ))}
+          <div className="space-y-8">
+            <div className="text-center mb-8">
+              <h2 className="text-3xl font-bold text-gray-900 mb-2">
+                Your Notes
+              </h2>
+              <p className="text-gray-600">
+                {notes.length} note{notes.length !== 1 ? 's' : ''} in your collection
+              </p>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+              {notes.map((note) => (
+                <NoteCard key={note._id} note={note} setNotes={setNotes} />
+              ))}
+            </div>
           </div>
         )}
       </div>

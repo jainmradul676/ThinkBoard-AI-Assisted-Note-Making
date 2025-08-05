@@ -22,25 +22,39 @@ const NoteCard = ({ note, setNotes }) => {
   return (
     <Link
       to={`/note/${note._id}`}
-      className="card bg-base-100 hover:shadow-lg transition-all duration-200 border-t-4 border-solid border-[#00FF9D]"
+      className="group block"
     >
-      <div className="card-body bg-base-200 p-4">
-        <h3 className="card-title text-base-content">{note.title}</h3>
-        <p className="text-base-content/70 line-clamp-3">{note.content}</p>
-        <div className="card-actions justify-between items-center mt-4">
-          <span className="text-sm text-base-content/60">
-            {formatDate(note.createdAt)}
-          </span> 
-          <div className="flex items-center gap-1">
-            <PenSquareIcon className="size-4 text-blue-500 hover:text-blue-700 transition-colors" />
-            <button 
-              className="btn btn-ghost btn-sm text-error"
-              onClick={(e) => handleDelete(e, note._id)}
-            >
-              <Trash2Icon className="size-4 text-red-500 hover:text-red-700 transition-colors" />
-            </button>
+      <div className="card-modern border border-gray-100 hover:border-gray-200 overflow-hidden">
+        <div className="p-6">
+          <div className="flex items-start justify-between mb-4">
+            <h3 className="text-lg font-semibold text-gray-900 group-hover:text-blue-600 transition-colors duration-200 line-clamp-2">
+              {note.title}
+            </h3>
+            <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+              <PenSquareIcon className="size-4 text-blue-500 hover:text-blue-700 transition-colors" />
+              <button 
+                className="p-1 text-red-500 hover:text-red-700 hover:bg-red-50 rounded-md transition-all duration-200"
+                onClick={(e) => handleDelete(e, note._id)}
+              >
+                <Trash2Icon className="size-4" />
+              </button>
+            </div>
+          </div>
+          
+          <p className="text-gray-600 line-clamp-3 mb-4 leading-relaxed">
+            {note.content}
+          </p>
+          
+          <div className="flex items-center justify-between pt-4 border-t border-gray-100">
+            <span className="text-sm text-gray-500 font-medium">
+              {formatDate(note.createdAt)}
+            </span>
+            <div className="w-2 h-2 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full"></div>
           </div>
         </div>
+        
+        {/* Gradient accent line */}
+        <div className="h-1 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500"></div>
       </div>
     </Link>
   );

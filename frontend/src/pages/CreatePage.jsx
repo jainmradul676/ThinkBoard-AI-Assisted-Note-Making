@@ -1,4 +1,4 @@
-import { ArrowLeftIcon } from "lucide-react";
+import { ArrowLeftIcon, SaveIcon } from "lucide-react";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { Link, useNavigate } from "react-router";
@@ -42,53 +42,72 @@ const CreatePage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-base-200">
-      <div className="container mx-auto px-4 py-8">
-        <div className="mx-w-2xl mx-auto">
-          <Link to="/" className="btn btn-ghost mb-6">
-            <ArrowLeftIcon className="size-4 mr-2" />
-            Back To Home
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-blue-50/30">
+      <div className="max-w-4xl mx-auto px-6 py-8">
+        <div className="mb-8">
+          <Link 
+            to="/" 
+            className="inline-flex items-center gap-2 text-gray-600 hover:text-blue-600 font-medium transition-colors duration-200"
+          >
+            <ArrowLeftIcon className="size-5" />
+            Back to Home
           </Link>
-          <div className="card bg-base-100 mx-40 mt-10">
-            <div className="card-body p-17">
-              <h2 className="card-title text-2xl mb-4">Create New Note</h2>
-              <form onSubmit={handleSubmit}>
-                <div className="form-control mb-10">
-                  <label className="label">
-                    <span className="label-text font-bold text-lg">Title</span>
-                  </label>
-                  <input
-                    type="text"
-                    placeholder="Enter Note Title"
-                    className="input input-bordered"
-                    value={title}
-                    onChange={(e) => setTitle(e.target.value)}
-                  />
-                </div>
-                <div className="form-control mb-4">
-                  <label className="label">
-                    <span className="label-text font-bold text-lg">
-                      Content
-                    </span>
-                  </label>
-                  <textarea
-                    placeholder="Write your note here..."
-                    className="textarea textarea-bordered h-32"
-                    value={content}
-                    onChange={(e) => setContent(e.target.value)}
-                  ></textarea>
-                </div>
-                <div className="card-actions justify-center mt-6">
-                  <button
-                    type="submit"
-                    className="btn btn-success text-lg font-bold"
-                    disabled={loading}
-                  >
-                    {loading ? "Creating..." : "Create Note"}
-                  </button>
-                </div>
-              </form>
-            </div>
+        </div>
+        
+        <div className="card-modern border border-gray-100 overflow-hidden">
+          <div className="bg-gradient-primary px-8 py-6">
+            <h2 className="text-3xl font-bold text-white">Create New Note</h2>
+            <p className="text-blue-100 mt-2">Capture your thoughts and ideas</p>
+          </div>
+          
+          <div className="p-8">
+            <form onSubmit={handleSubmit} className="space-y-6">
+              <div>
+                <label className="block text-sm font-semibold text-gray-700 mb-3">
+                  Title
+                </label>
+                <input
+                  type="text"
+                  placeholder="Enter a compelling title for your note..."
+                  className="input-modern"
+                  value={title}
+                  onChange={(e) => setTitle(e.target.value)}
+                />
+              </div>
+              
+              <div>
+                <label className="block text-sm font-semibold text-gray-700 mb-3">
+                  Content
+                </label>
+                <textarea
+                  placeholder="Write your thoughts, ideas, or anything you want to remember..."
+                  className="input-modern resize-none"
+                  rows={12}
+                  value={content}
+                  onChange={(e) => setContent(e.target.value)}
+                ></textarea>
+              </div>
+              
+              <div className="flex items-center justify-center pt-6">
+                <button
+                  type="submit"
+                  disabled={loading}
+                  className="btn-modern disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+                >
+                  {loading ? (
+                    <>
+                      <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                      Creating...
+                    </>
+                  ) : (
+                    <>
+                      <SaveIcon className="size-5" />
+                      Create Note
+                    </>
+                  )}
+                </button>
+              </div>
+            </form>
           </div>
         </div>
       </div>
